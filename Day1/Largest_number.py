@@ -1,9 +1,7 @@
-numbers = [5, 2, 9, 1, 7]
-
-largest = numbers[0]
-
-for num in numbers:
-    if num > largest:
-        largest = num
-
-print(largest)
+def largest(list):
+    largest=list[0]
+    for num in list:
+        if num>largest:
+            largest=num
+    return largest
+print(largest([4,6,9,2,14,7]))
