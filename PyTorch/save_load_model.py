@@ -15,17 +15,6 @@ train_loader=DataLoader(
     batch_size=64,
     shuffle=True
 )
-# test_dataset=datasets.MNIST(
-#   root="./data",
-#   train=False,
-#   download=True,
-#   transform=transform
-# )
-# test_loader=DataLoader(
-#     test_dataset,
-#     batch_size=64,
-#     shuffle=False
-# )
 model=nn.Sequential(
     nn.Conv2d(1,8,3),
     nn.ReLU(),
