@@ -35,17 +35,9 @@ optimizer=optim.Adam(
     model.parameters(),
     lr=0.001
 )
-device = torch.device(
-    "cuda"
-    if torch.cuda.is_available()
-    else "cpu"
-)
-model = model.to(device)
 for epoch in range(5):
     running_loss = 0
     for images, labels in loader:
-        images = images.to(device)
-        labels = labels.to(device)
         outputs = model(images)
         loss = criterion(outputs, labels)
         optimizer.zero_grad()
