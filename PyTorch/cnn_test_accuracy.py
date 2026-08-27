@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 transform=transforms.ToTensor()
 train_dataset=datasets.MNIST(
   root="./data",
+  download=True,
   train=True,
   transform=transform
 )
