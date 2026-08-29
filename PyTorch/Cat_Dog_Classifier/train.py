@@ -2,54 +2,90 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from model import CatDogModel
-# 1. Prepare the images
+# -------------------------
+# 1. Image transformations
+# -------------------------
 transform = transforms.Compose([
     transforms.Resize((128, 128)),
     transforms.ToTensor()
 ])
-# 2. Load the dataset
-dataset = datasets.ImageFolder(
-    "dataset",
+# -------------------------
+# 2. Load datasets
+# -------------------------
+train_dataset = datasets.ImageFolder(
+    "datasets/train",
     transform=transform
 )
-# 3. Create batches
-loader = DataLoader(
-    dataset,
-    batch_size=2,
+test_dataset = datasets.ImageFolder(
+    "datasets/test",
+    transform=transform
+)
+# -------------------------
+# 3. Create DataLoaders
+# -------------------------
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=16,
     shuffle=True
 )
+test_loader = DataLoader(
+    test_dataset,
+    batch_size=16,
+    shuffle=False
+)
+# -------------------------
 # 4. Create the model
+# -------------------------
 model = CatDogModel()
-# 5. Loss function
+# -------------------------
+# 5. Loss + optimizer
+# -------------------------
 loss_function = torch.nn.CrossEntropyLoss()
-# 6. Optimizer
 optimizer = torch.optim.Adam(
     model.parameters(),
     lr=0.001
 )
-# 7. Training
+
+
+# -------------------------
+# 6. Training
+# -------------------------
+
 epochs = 10
+
 for epoch in range(epochs):
+
+    model.train()
+
     total_loss = 0
-    for images, labels in loader:
-        # Forward pass
+
+    for images, labels in train_loader:
+
         predictions = model(images)
-        # Calculate loss
+
         loss = loss_function(predictions, labels)
-        # Clear old gradients
+
         optimizer.zero_grad()
-        # Backpropagation
+
         loss.backward()
-        # Update weights
+
         optimizer.step()
+
         total_loss += loss.item()
+
     print(
         f"Epoch {epoch + 1}/{epochs}, "
         f"Loss: {total_loss:.4f}"
     )
-# 8. Save the trained model
+
+
+# -------------------------
+# 7. Save model
+# -------------------------
+
 torch.save(
     model.state_dict(),
     "cat_dog_model.pth"
 )
+
 print("Training complete!")
