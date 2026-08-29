@@ -2,6 +2,9 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from model import CatDogModel
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
+DATASET_DIR = BASE_DIR / "datasets"
 # -------------------------
 # 1. Image transformations
 # -------------------------
@@ -13,11 +16,11 @@ transform = transforms.Compose([
 # 2. Load datasets
 # -------------------------
 train_dataset = datasets.ImageFolder(
-    "datasets/train",
+    DATASET_DIR/"train",
     transform=transform
 )
 test_dataset = datasets.ImageFolder(
-    "datasets/test",
+    DATASET_DIR/"test",
     transform=transform
 )
 # -------------------------
@@ -45,47 +48,48 @@ optimizer = torch.optim.Adam(
     model.parameters(),
     lr=0.001
 )
-
-
 # -------------------------
 # 6. Training
 # -------------------------
-
 epochs = 10
-
 for epoch in range(epochs):
-
     model.train()
-
     total_loss = 0
-
     for images, labels in train_loader:
-
         predictions = model(images)
-
         loss = loss_function(predictions, labels)
-
         optimizer.zero_grad()
-
         loss.backward()
-
         optimizer.step()
-
         total_loss += loss.item()
-
     print(
         f"Epoch {epoch + 1}/{epochs}, "
         f"Loss: {total_loss:.4f}"
     )
-
-
 # -------------------------
-# 7. Save model
+# 7. Evaluate the model
 # -------------------------
-
+model.eval()
+correct = 0
+total = 0
+with torch.no_grad():
+    for images, labels in test_loader:
+        predictions = model(images)
+        predicted_classes = torch.argmax(
+            predictions,
+            dim=1
+        )
+        total += labels.size(0)
+        correct += (
+            predicted_classes == labels
+        ).sum().item()
+accuracy = 100 * correct / total
+print(f"Test Accuracy: {accuracy:.2f}%")
+# -------------------------
+# 8. Save model
+# -------------------------
 torch.save(
     model.state_dict(),
     "cat_dog_model.pth"
 )
-
 print("Training complete!")
