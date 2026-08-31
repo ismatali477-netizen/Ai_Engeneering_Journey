@@ -10,8 +10,8 @@ DATASET_DIR = BASE_DIR / "datasets"
 # -------------------------
 train_transform = transforms.Compose([
     transforms.Resize((128, 128)),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(10),
+    # transforms.RandomHorizontalFlip(),
+    # transforms.RandomRotation(10),
     transforms.ToTensor()
 ])
 # -------------------------
