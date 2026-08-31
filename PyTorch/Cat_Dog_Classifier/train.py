@@ -6,22 +6,31 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 DATASET_DIR = BASE_DIR / "datasets"
 # -------------------------
-# 1. Image transformations
+# 1. Transformations for training images
 # -------------------------
-transform = transforms.Compose([
+train_transform = transforms.Compose([
     transforms.Resize((128, 128)),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(10),
     transforms.ToTensor()
 ])
 # -------------------------
+# 1. Transformations for test images
+# -------------------------
+# -------------------------
+test_transform=transforms.Compose([
+    transforms.Resize((128,128)),
+    transforms.ToTensor()
+])
 # 2. Load datasets
 # -------------------------
 train_dataset = datasets.ImageFolder(
     DATASET_DIR/"train",
-    transform=transform
+    transform=train_transform
 )
 test_dataset = datasets.ImageFolder(
     DATASET_DIR/"test",
-    transform=transform
+    transform=test_transform
 )
 # -------------------------
 # 3. Create DataLoaders
