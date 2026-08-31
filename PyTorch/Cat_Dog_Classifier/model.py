@@ -1,29 +1,19 @@
-import torch
 import torch.nn as nn
+from torchvision import models
 class CatDogModel(nn.Module):
     def __init__(self, num_classes=2):
         super().__init__()
-        self.features = nn.Sequential(
-            # Convolution block 1
-            nn.Conv2d(3, 16, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2),
-            # Convolution block 2
-            nn.Conv2d(16, 32, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2),
-            # Convolution block 3
-            nn.Conv2d(32, 64, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2)
+        # Load a pretrained ResNet18
+        self.model = models.resnet18(
+            weights=models.ResNet18_Weights.DEFAULT
         )
-        self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(64 * 16 * 16, 128),
-            nn.ReLU(),
-            nn.Linear(128, num_classes)
+        # Freeze the pretrained layers
+        for parameter in self.model.parameters():
+            parameter.requires_grad = False
+        # Replace the final layer
+        self.model.fc = nn.Linear(
+            self.model.fc.in_features,
+            num_classes
         )
     def forward(self, x):
-        x = self.features(x)
-        x = self.classifier(x)
-        return x
+        return self.model(x)

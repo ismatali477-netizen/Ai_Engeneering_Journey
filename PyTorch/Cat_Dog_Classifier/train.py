@@ -9,18 +9,24 @@ DATASET_DIR = BASE_DIR / "datasets"
 # 1. Transformations for training images
 # -------------------------
 train_transform = transforms.Compose([
-    transforms.Resize((128, 128)),
-    # transforms.RandomHorizontalFlip(),
-    # transforms.RandomRotation(10),
-    transforms.ToTensor()
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    transforms.Normalize(
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225]
+    )
 ])
 # -------------------------
 # 1. Transformations for test images
 # -------------------------
 # -------------------------
-test_transform=transforms.Compose([
-    transforms.Resize((128,128)),
-    transforms.ToTensor()
+test_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    transforms.Normalize(
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225]
+    )
 ])
 # 2. Load datasets
 # -------------------------
@@ -55,7 +61,7 @@ model = CatDogModel()
 loss_function = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(
     model.parameters(),
-    lr=0.001
+    lr=0.0001
 )
 # -------------------------
 # 6. Training
