@@ -55,6 +55,8 @@ epochs = 10
 for epoch in range(epochs):
     model.train()
     total_loss = 0
+    correct=0
+    total=0
     for images, labels in train_loader:
         predictions = model(images)
         loss = loss_function(predictions, labels)
@@ -62,9 +64,15 @@ for epoch in range(epochs):
         loss.backward()
         optimizer.step()
         total_loss += loss.item()
+        # Calculate training accuracy
+        predicted_classes = torch.argmax(predictions,dim=1)
+        total+=labels.size(0)
+        correct += (predicted_classes == labels).sum().item()
+    train_accuracy = 100 * correct / total
     print(
-        f"Epoch {epoch + 1}/{epochs}, "
-        f"Loss: {total_loss:.4f}"
+        f"Epoch {epoch + 1}/{epochs} | "
+        f"Loss: {total_loss:.4f} | "
+        f"Train Accuracy: {train_accuracy:.2f}%"
     )
 # -------------------------
 # 7. Evaluate the model
