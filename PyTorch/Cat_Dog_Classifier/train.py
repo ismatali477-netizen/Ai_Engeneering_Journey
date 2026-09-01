@@ -2,6 +2,7 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from model import CatDogModel
+from sklearn.metrics import confusion_matrix, classification_report
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 DATASET_DIR = BASE_DIR / "datasets"
@@ -109,10 +110,38 @@ with torch.no_grad():
 accuracy = 100 * correct / total
 print(f"Test Accuracy: {accuracy:.2f}%")
 # -------------------------
-# 8. Save model
+# 8. Confusion Matrix
 # -------------------------
-torch.save(
-    model.state_dict(),
-    "cat_dog_model.pth"
+all_predictions = []
+all_labels = []
+model.eval()
+with torch.no_grad():
+    for images, labels in test_loader:
+        outputs = model(images)
+        predictions = torch.argmax(
+            outputs,
+            dim=1
+        )
+        all_predictions.extend(
+            predictions.cpu().numpy()
+        )
+        all_labels.extend(
+            labels.cpu().numpy()
+        )
+# Create confusion matrix
+cm = confusion_matrix(
+    all_labels,
+    all_predictions
+)
+print("\nConfusion Matrix:")
+print(cm)
+# Detailed report
+print("\nClassification Report:")
+print(
+    classification_report(
+        all_labels,
+        all_predictions,
+        target_names=test_dataset.classes
+    )
 )
 print("Training complete!")
