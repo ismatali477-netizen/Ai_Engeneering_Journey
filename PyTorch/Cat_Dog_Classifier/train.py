@@ -144,4 +144,13 @@ print(
         target_names=test_dataset.classes
     )
 )
+# -------------------------
+# Save the trained model
+# -------------------------
+model_path = BASE_DIR / "cat_dog_model.pth"
+torch.save(
+    model.state_dict(),
+    model_path
+)
+print(f"Model saved to: {model_path}")
 print("Training complete!")
