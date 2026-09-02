@@ -1,0 +1,18 @@
+# # Created by venv; see https://docs.python.org/3/library/venv.html
+# #Ignore dataset
+# __pycache__/
+# *.pyc/
+# # Dataset files
+# datasets/
+# *
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Datasets
+datasets/
