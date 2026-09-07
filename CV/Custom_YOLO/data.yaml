@@ -1,0 +1,13 @@
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 11
+names: ['Drinking', 'Driver', 'Driver Looking away', 'Driver Reaching behind', 'Driver talking on phone', 'Eyes Closed', 'Eyes Open', 'Mobile', 'Seat Belt', 'Texting', 'Yawning']
+
+roboflow:
+  workspace: demo-lu1rd
+  project: phone-detection-lmejw-iozym
+  version: 1
+  license: Public Domain
+  url: https://universe.roboflow.com/demo-lu1rd/phone-detection-lmejw-iozym/dataset/1

@@ -17,3 +17,7 @@ __pycache__/
 # Datasets
 datasets/
 dataset/
+#YOLO Dataset
+test/
+train/
+valid/
