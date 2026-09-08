@@ -3,8 +3,8 @@ from ultralytics import YOLO
 model = YOLO(r"runs\detect\train-2\weights\best.pt")
 # Test image
 results = model(
-    r"C:\Users\Saruk meeya\Downloads\test.jpg",
-    conf=0.5
+    r"C:\Users\Saruk meeya\Downloads\test2.jpg",
+    conf=0.05
 )
 # Display predictions
 results[0].show()
