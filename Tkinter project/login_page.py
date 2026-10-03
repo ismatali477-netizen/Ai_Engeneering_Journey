@@ -1,6 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk,Image
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
+logo_path = BASE_DIR / "logo.png"
 def login():
     if email_input.get() == "demo@gmail.com" and password_input.get() == "demo@2008":
         messagebox.showinfo("Login Successful")
@@ -13,7 +16,7 @@ root.maxsize(700,500)
 root.geometry("300x350")
 root.configure(bg="#0096DC")
 
-logo=Image.open("logo.png")
+logo=Image.open(logo_path)
 resized_img=logo.resize((70,70))
 logo=ImageTk.PhotoImage(resized_img)
 
