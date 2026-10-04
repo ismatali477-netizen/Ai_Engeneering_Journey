@@ -6,7 +6,7 @@ def digit(num):
     result_label.config(text=new)
 def clear():
     result_label.config(text="")
-def operator(op):
+def current_operator(op):
     global first_num, operator
     first_num=int(result_label["text"])
     operator=op
@@ -47,7 +47,7 @@ btn9=Button(root,text="9",width=5,height=2,bg="#2c6971",fg="white",command=lambd
 btn9.grid(row=1,column=2,sticky="nsew")
 btn9.config(font=("verdana",15))
 
-btn_add=Button(root,text="+",width=5,height=2,bg="#2c6971",fg="white",command=lambda: operator("+"))
+btn_add=Button(root,text="+",width=5,height=2,bg="#2c6971",fg="white",command=lambda: current_operator("+"))
 btn_add.grid(row=1,column=3,sticky="nsew")
 btn_add.config(font=("verdana",15))
 
@@ -63,7 +63,7 @@ btn6=Button(root,text="6",width=5,height=2,bg="#2c6971",fg="white",command=lambd
 btn6.grid(row=2,column=2,sticky="nsew")
 btn6.config(font=("verdana",15))
 
-btn_subtract=Button(root,text="-",width=5,height=2,bg="#2c6971",fg="white",command=lambda: operator("-"))
+btn_subtract=Button(root,text="-",width=5,height=2,bg="#2c6971",fg="white",command=lambda: current_operator("-"))
 btn_subtract.grid(row=2,column=3,sticky="nsew")
 btn_subtract.config(font=("verdana",15))
 
@@ -79,7 +79,7 @@ btn3=Button(root,text="3",width=5,height=2,bg="#2c6971",fg="white",command=lambd
 btn3.grid(row=3,column=2,sticky="nsew")
 btn3.config(font=("verdana",15))
 
-btn_multiply=Button(root,text="*",width=5,height=2,bg="#2c6971",fg="white",command=lambda: operator("*"))
+btn_multiply=Button(root,text="*",width=5,height=2,bg="#2c6971",fg="white",command=lambda: current_operator("*"))
 btn_multiply.grid(row=3,column=3,sticky="nsew")
 btn_multiply.config(font=("verdana",15))
 
@@ -95,7 +95,7 @@ btn_equal=Button(root,text="=",width=5,height=2,bg="#2c6971",fg="white",command=
 btn_equal.grid(row=4,column=2,sticky="nsew")
 btn_equal.config(font=("verdana",15))
 
-btn_divide=Button(root,text="/",width=5,height=2,bg="#2c6971",fg="white",command=lambda: operator("/"))
+btn_divide=Button(root,text="/",width=5,height=2,bg="#2c6971",fg="white",command=lambda: current_operator("/"))
 btn_divide.grid(row=4,column=3,sticky="nsew")
 btn_divide.config(font=("verdana",15))
 
