@@ -5,8 +5,8 @@ import requests
 from tkinter import *
 from urllib.request import urlopen,Request
 from PIL import ImageTk,Image
-base_dir = os.path.dirname(os.path.abspath(__file__)) # Navigates up to root
-key_path = os.path.join(base_dir,"secret_api") # Adjust the path to your secret_api_key.txt file
+base_dir = os.path.dirname(os.path.abspath(__file__)) 
+key_path = os.path.join(base_dir,"secret_api") 
 with open(key_path, "r") as file:
     API_KEY = file.read().strip()
 class news:
