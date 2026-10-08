@@ -35,7 +35,6 @@ class news:
 
         if img_url:
             try:
-                # Send a fake browser User-Agent to bypass HTTP 403 Forbidden
                 headers = {'User-Agent': 'Mozilla/5.0'}
                 raw_data = requests.get(img_url, headers=headers).content
 
@@ -47,9 +46,9 @@ class news:
             except Exception as e:
                 label = Label(self.root, text="[Image Load Failed]", bg="#7ce1f0", height=10)
                 label.pack()
-            # else:
-            #     label = Label(self.root, text="[No Image Available]", bg="#7ce1f0", height=10)
-            #     label.pack()
+        else:
+            label = Label(self.root, text="[No Image Available]", bg="#7ce1f0", height=10)
+            label.pack()
 
 
         heading=Label(self.root,text=self.data['articles'][index]['title'],bg="#7ce1f0",fg="black",font=("bold",10),wraplength=300,justify="center")
