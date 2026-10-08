@@ -7,12 +7,17 @@ from urllib.request import urlopen,Request
 from PIL import ImageTk,Image
 base_dir = os.path.dirname(os.path.abspath(__file__)) 
 key_path = os.path.join(base_dir,"secret_api") 
+keys = {}
 with open(key_path, "r") as file:
-    API_KEY = file.read().strip()
+    for line in file:
+        name, value = line.strip().split("=", 1)
+        keys[name] = value
+
+NEWS_API_KEY = keys["NEWS_API_KEY"]
 class news:
     def __init__(self):
         #fetch data from news api
-        self.data=requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={API_KEY}").json()
+        self.data=requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={NEWS_API_KEY}").json()
         self.load_gui()
         self.load_news(0)
 
