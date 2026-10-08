@@ -78,4 +78,5 @@ class news:
         self.root.mainloop()
     def open_link(self,url):
         webbrowser.open(url)
-object=news()
+if __name__=="__main__":
+    object=news()
